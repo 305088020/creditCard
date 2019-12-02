@@ -1,3 +1,18 @@
+// "parserOptions":{
+//   "ecmaVersion":6,
+//   "sourceType":"module",
+//   "ecmaFeatures":{
+//     "jsx":true,
+//     "experimentalObjectRestSpread":true,
+//     "modules":true
+//   }
+// }
+
 {
-  "extends": "eslint-config-egg"
+  "extends": "eslint-config-egg",
+  "rules" : {
+    // "quotes": [0, "double"],
+    // "comma-dangle": [2, "never"]
+  }
 }
+
