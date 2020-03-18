@@ -16,9 +16,9 @@ module.exports = app => {
       // 还款日
       repayDate: DATE,
       // 应还款金额
-      amount: DECIMAL,
+      amount: DECIMAL(10, 2),
       // 实际已还款金额
-      incomeAmount: DECIMAL,
+      incomeAmount: DECIMAL(10, 2),
       created_at: DATE,
       updated_at: DATE
     },
@@ -35,9 +35,6 @@ module.exports = app => {
       foreignKey: "card_id",
       targetKey: "id"
     });
-  };
-
-  Bill.associate = function() {
     app.model.Bill.hasMany(app.model.Flow, {
       foreignKey: "bill_id",
       targetKey: "id"

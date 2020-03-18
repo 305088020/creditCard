@@ -16,6 +16,7 @@ class BanksController extends Controller {
 
   async show() {
     const ctx = this.ctx;
+    console.log("show----------->");
     ctx.body = await ctx.model.Bank.findByPk(ctx.params.id);
   }
 

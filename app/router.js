@@ -15,4 +15,7 @@ module.exports = app => {
   router.resources("bank", "/bank", controller.bank);
   router.resources("card", "/card", controller.card);
   router.resources("record", "/record", controller.record);
+  router.resources("bill", "/bill", controller.bill);
+  router.resources("flow", "/flow", controller.flow);
+  router.get("/updateAllBill", controller.bill.updateAll);
 };

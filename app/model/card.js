@@ -57,6 +57,11 @@ module.exports = app => {
       foreignKey: "card_id",
       targetKey: "id"
     });
+    // 与流水表，一对多
+    app.model.Card.hasMany(app.model.Flow, {
+      foreignKey: "card_id",
+      targetKey: "id"
+    });
   };
 
   Card.findByIdWithUser = async function(id, userId) {

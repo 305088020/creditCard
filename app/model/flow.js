@@ -7,15 +7,18 @@ module.exports = app => {
     "flow",
     {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
+      card_id: INTEGER,
       bill_id: INTEGER,
       // 出账
-      outgoingAmount: DECIMAL,
+      outgoingAmount: DECIMAL(10, 2),
       // 入账
-      incomeAmount: DECIMAL,
+      incomeAmount: DECIMAL(10, 2),
       // 记账金额
-      amount: DECIMAL,
+      amount: DECIMAL(10, 2),
       // +还款 -消费
       direction: STRING,
+      // 交易时间
+      tradeTime: DATE,
       created_at: DATE,
       updated_at: DATE
     },
@@ -30,6 +33,10 @@ module.exports = app => {
   Flow.associate = function() {
     app.model.Flow.belongsTo(app.model.Bill, {
       foreignKey: "bill_id",
+      targetKey: "id"
+    });
+    app.model.Flow.belongsTo(app.model.Card, {
+      foreignKey: "card_id",
       targetKey: "id"
     });
   };

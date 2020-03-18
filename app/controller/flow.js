@@ -1,17 +1,17 @@
 "use strict";
 
 const Controller = require("egg").Controller;
-
-function toInt(str) {
-  if (typeof str === "number") return str;
-  if (!str) return str;
-  return parseInt(str, 10) || 0;
-}
-
 class FlowsController extends Controller {
   async index() {
     const ctx = this.ctx;
-    ctx.body = await ctx.model.Bill.findAll();
+    ctx.body = await ctx.model.Flow.findAll({
+      include: [
+        {
+          model: ctx.model.Card,
+          include: [{ model: ctx.model.Person }, { model: ctx.model.Bank }]
+        }
+      ]
+    });
   }
 
   /**
@@ -30,11 +30,24 @@ class FlowsController extends Controller {
    * 4、否则不做处理
    */
 
+  async create() {
+    const ctx = this.ctx;
+    const flow = await ctx.service.flow.create(ctx.request.body);
+    ctx.status = 201;
+    ctx.body = flow;
+  }
+
   /**
    * 删除流水
    * 1、如果是消费，则可用额度增加，更新相应的账单，没有账单不做处理
    * 2、如果是还款，则可用额度减少，更新相应的账单，没有账单不做处理
    * 3、删除流水
    */
+  async destroy() {
+    const ctx = this.ctx;
+    const id = toInt(ctx.params.id);
+    await ctx.service.flow.del(id);
+    ctx.status = 200;
+  }
 }
 module.exports = FlowsController;
